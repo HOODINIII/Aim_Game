@@ -40,3 +40,15 @@ void AAimEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimiti
 {
 }
 
+void AAimEnemy::OnSensed(const TArray<AActor*>& UpdatedActors)
+{
+}
+
+void AAimEnemy::SetNewRotation(FVector TargetPosition, FVector CurrentPosition)
+{
+}
+
+void AAimEnemy::DealDamage(float DamageAmount)
+{
+}
+
