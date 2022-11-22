@@ -23,4 +23,16 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(VisibleDefaultsOnly, Category = Bullets)
+		class USphereComponent* CollisionSphere;
+
+	UPROPERTY(VisibleAnywhere, Category = Movement)
+		class UprojectileMovementComponent* BulletMovement;
+
+	UFUNCTION()
+		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit);
+
+	UPROPERTY(EditAnywhere)
+		float DamageValue = 20.0f;
+
 };

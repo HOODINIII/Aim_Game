@@ -74,8 +74,8 @@ void AAimCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &AAimCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AAimCharacter::MoveRight);
-	PlayerInputComponent->BindAxis("TurnRate", this, &AAimCharacter::TurnAtRate);
-	PlayerInputComponent->BindAxis("LookUpRate", this, &AAimCharacter::LookAtRate);
+	PlayerInputComponent->BindAxis("Turn", this, &AAimCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("LookUp", this, &AAimCharacter::LookAtRate);
 
 }
 
