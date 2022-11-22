@@ -51,6 +51,30 @@ void AAimEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (!CurrentVelocity.IsZero())
+	{
+		NewLocation = GetActorLocation() + CurrentVelocity * DeltaTime;
+		
+		if(BackToBaseLocation)
+		{
+			if ((NewLocation - BaseLocation).SizeSquared2D() < DistanceSquared)
+			{
+			DistanceSquared = (NewLocation - BaseLocation).SizeSquared2D();
+			}
+			else
+			{	
+			CurrentVelocity = FVector::ZeroVector;
+			DistanceSquared = BIG_NUMBER;
+			BackToBaseLocation = false;
+
+			SetNewRotation(GetActorForwardVector(), GetActorLocation());
+			} 
+		
+		}
+		
+		SetActorLocation(NewLocation);
+	}
+
 }
 
 // Called to bind functionality to input
@@ -66,10 +90,44 @@ void AAimEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimiti
 
 void AAimEnemy::OnSensed(const TArray<AActor*>& UpdatedActors)
 {
+	for (int i = 0; i < UpdatedActors.Num(); i++)
+	{
+		FActorPerceptionBlueprintInfo Info;
+		AIPerComp->GetActorsPerception(UpdatedActors[i], Info);
+		
+		if (Info.LastSensedStimuli[0].WasSuccessfullySensed())
+		{
+			FVector dir = UpdatedActors[i]->GetActorLocation() - GetActorLocation();
+			dir.Z = 0.0f;
+			
+			CurrentVelocity = dir.GetSafeNormal() * MovementSpeed;
+
+			SetNewRotation(UpdatedActors[i]->GetActorLocation(), GetActorLocation());
+		}
+		else
+		{
+			FVector dir = BaseLocation - GetActorLocation();
+			dir.Z = 0.0f;
+
+			if (dir.SizeSquared2D() > 1.0f)
+			{
+				CurrentVelocity = dir.GetSafeNormal() * MovementSpeed;
+				BackToBaseLocation = true;
+
+				SetNewRotation(BaseLocation, GetActorLocation());
+			}
+		}
+	}
 }
 
 void AAimEnemy::SetNewRotation(FVector TargetPosition, FVector CurrentPosition)
 {
+	FVector NewDirection = TargetPosition - CurrentPosition;
+	NewDirection.Z = 0.0f;
+	
+	EnemyRotation = NewDirection.Rotation();
+
+	SetActorRotation(EnemyRotation);
 }
 
 void AAimEnemy::DealDamage(float DamageAmount)
