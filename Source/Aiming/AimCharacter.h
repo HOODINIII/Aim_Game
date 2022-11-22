@@ -58,7 +58,7 @@ protected:
 
 public:
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-		TSubclassOf<class ABullet> Projectile;
+		TSubclassOf<class ABullets> Projectile;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Gameplay)
 		class USoundBase* FireSound;
