@@ -71,10 +71,11 @@ void AAimCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	PlayerInputComponent->BindAction("jump", IE_Released, this, &ACharacter::Jump);
 
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AAimCharacter::OnFire);
-	PlayerInputComponent->BindAxis("MoveFoward", this, &AAimCharacter::MoveForward);
+
+	PlayerInputComponent->BindAxis("MoveForward", this, &AAimCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AAimCharacter::MoveRight);
-	PlayerInputComponent->BindAxis("Turn", this, &AAimCharacter::TurnAtRate);
-	PlayerInputComponent->BindAxis("LookUp", this, &AAimCharacter::LookAtRate);
+	PlayerInputComponent->BindAxis("TurnRate", this, &AAimCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("LookUpRate", this, &AAimCharacter::LookAtRate);
 
 }
 
