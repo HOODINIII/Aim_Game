@@ -2,6 +2,8 @@
 
 
 #include "AimEnemy.h"
+#include "Components/BoxComponent.h"
+#include "AimCharacter.h"
 
 // Sets default values
 AAimEnemy::AAimEnemy()
@@ -9,13 +11,15 @@ AAimEnemy::AAimEnemy()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	DamageCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Damage Collision"));
+	DamageCollision->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
 void AAimEnemy::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	DamageCollision->OnComponentBeginOverlap.AddDynamic(this, &AAimEnemy::OnHit);
 }
 
 // Called every frame
@@ -30,5 +34,9 @@ void AAimEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void AAimEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit)
+{
 }
 
