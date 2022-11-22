@@ -58,7 +58,9 @@ void AAimCharacter::BeginPlay()
 	
 	GunsMesh->AttachToComponent(HandsMesh, FAttachmentTransformRules::SnapToTargetNotIncludingScale, TEXT("GripPoint"));
 
-	
+	World = GetWorld();
+	AnimInstance = HandsMesh->GetAnimInstance();
+
 }
 
 // Called every frame
@@ -87,7 +89,27 @@ void AAimCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 
 void AAimCharacter::OnFire()
 {
+	if (World != NULL)
+	{
+		SpawnRoatation = GetControlRotation();
 
+		SpawnLocation = ((MuzzleLocation != nullptr) ? MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRoatation.RotateVector(GunOffset);
+
+		FActorSpawnParameters ActorSpawnParams; //defines actor spwan if colliding with an object
+		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+
+		World->SpawnActor<ABullets>(Projectile, SpawnLocation, SpawnRoatation, ActorSpawnParams);
+
+		if (FireSound != NULL)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
+
+		}
+		if (FireAnimation != NULL && AnimInstance != NULL)
+		{
+			AnimInstance->Montage_Play(FireAnimation, 1.0f);
+		}
+	}
 }
 
 void AAimCharacter::MoveForward(float Value)
