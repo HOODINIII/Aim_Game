@@ -7,6 +7,12 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 
+#include "Bullets.h"
+#include "Animation/AnimInstance.h"
+#include "Kismet/GameplayStatics.h"
+
+#include "AimGameMode.h"
+
 using namespace std;
 
 // Sets default values

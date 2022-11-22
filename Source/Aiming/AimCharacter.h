@@ -55,4 +55,20 @@ protected:
 	void MoveRight(float Vlaue);
 	void TurnAtRate(float Rate);
 	void LookAtRate(float Rate);
+
+public:
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+		TSubclassOf<class ABullet> Projectile;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Gameplay)
+		class USoundBase* FireSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		class UAnimMontage* FireAnimation;
+	
+	class UAnimInstance* AnimInstance;
+	class UWorld* World;
+
+	FRotator SpawnRoatation;
+	FVector SpawnLocation;
 };
