@@ -67,25 +67,45 @@ void AAimCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAction("jump", IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction("jump", IE_Released, this, &ACharacter::Jump);
+
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AAimCharacter::OnFire);
+	PlayerInputComponent->BindAxis("MoveFoward", this, &AAimCharacter::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &AAimCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("Turn", this, &AAimCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("LookUp", this, &AAimCharacter::LookAtRate);
+
 }
 
 void AAimCharacter::OnFire()
 {
+
 }
 
 void AAimCharacter::MoveForward(float Value)
 {
+	if (Value != 0.0f)
+	{
+		AddMovementInput(GetActorForwardVector(), Value);
+	}
 }
 
-void AAimCharacter::MoveRight(float Vlaue)
+void AAimCharacter::MoveRight(float Value)
 {
+	if (Value != 0.0f)
+	{
+		AddMovementInput(GetActorRightVector(), Value);
+	}
 }
 
 void AAimCharacter::TurnAtRate(float Rate)
 {
+	AddControllerYawInput(Rate * TurnRate * GetWorld()->GetDeltaSeconds());
 }
 
 void AAimCharacter::LookAtRate(float Rate)
 {
+	AddControllerPitchInput(Rate * LookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
