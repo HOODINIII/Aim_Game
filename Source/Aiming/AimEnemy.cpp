@@ -20,7 +20,7 @@ AAimEnemy::AAimEnemy()
 	SightConfig = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("Sight Config"));
 
 	SightConfig->SightRadius = 1250.0f;
-	SightConfig->LoseSightRadius = 1380.0f;
+	SightConfig->LoseSightRadius = 1300.0f;
 	SightConfig->PeripheralVisionAngleDegrees = 90.0f;
 	SightConfig->DetectionByAffiliation.bDetectEnemies = true;
 	SightConfig->DetectionByAffiliation.bDetectFriendlies = true;
