@@ -138,3 +138,13 @@ void AAimCharacter::LookAtRate(float Rate)
 	AddControllerPitchInput(Rate * LookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
+void AAimCharacter::DealDamage(float DamageAmmount)
+{
+	Health -= DamageAmmount;
+	
+	if (Health <= 0.0f)
+	{
+		Destroy();
+	}
+}
+

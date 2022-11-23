@@ -71,4 +71,12 @@ public:
 
 	FRotator SpawnRoatation;
 	FVector SpawnLocation;
+
+	UPROPERTY(EditAnywhere, BluePrintReadOnly)
+		float Health = 100.0f;
+
+public:
+
+	void DealDamage(float DamageAmmount);
+
 };

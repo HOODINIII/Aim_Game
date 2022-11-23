@@ -86,6 +86,15 @@ void AAimEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AAimEnemy::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& Hit)
 {
+
+	AAimCharacter* Char = Cast<AAimCharacter>(OtherActor);
+
+	if (Char)
+	{
+		Char->DealDamage(DamageValue);
+
+	}
+
 }
 
 void AAimEnemy::OnSensed(const TArray<AActor*>& UpdatedActors)
@@ -132,5 +141,12 @@ void AAimEnemy::SetNewRotation(FVector TargetPosition, FVector CurrentPosition)
 
 void AAimEnemy::DealDamage(float DamageAmount)
 {
+	Health -= DamageAmount;
+
+	if (Health <= 0.0f)
+	{
+
+		Destroy();
+	}
 }
 
