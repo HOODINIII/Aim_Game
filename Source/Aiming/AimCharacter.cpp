@@ -144,6 +144,7 @@ void AAimCharacter::DealDamage(float DamageAmmount)
 	
 	if (Health <= 0.0f)
 	{
+
 		Destroy();
 	}
 }

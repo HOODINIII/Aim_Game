@@ -14,4 +14,12 @@ class AIMING_API AAimGameMode : public AGameMode
 {
 	GENERATED_BODY()
 	
+public:
+	AAimGameMode();
+
+	void RestartGameplay(bool Won);
+
+private:
+
+	void ResetLevel();
 };

@@ -12,7 +12,9 @@ class AAimingGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	AAimingGameMode();
+
+		AAimingGameMode();
+
 };
 
 

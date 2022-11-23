@@ -3,6 +3,7 @@
 #include "AimingGameMode.h"
 #include "AimingCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "kismet/gameplaystatics.h"
 
 AAimingGameMode::AAimingGameMode()
 	: Super()
@@ -12,3 +13,6 @@ AAimingGameMode::AAimingGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 }
+
+
+
